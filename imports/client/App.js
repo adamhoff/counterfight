@@ -37,7 +37,6 @@ class App extends Component {
 
     return(
         <main>
-          <h1>SUCCESS!!!</h1>
           <IsRole role='admin' {...this.props}>
             <button onClick={this.showAll}>
               Show {this.props.showAll ? 'One' : 'All'}
