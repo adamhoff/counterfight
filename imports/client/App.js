@@ -42,13 +42,11 @@ class App extends Component {
               Show {this.props.showAll ? 'One' : 'All'}
             </button>
           </IsRole>
-          <IsRole role='admin'>
             <form className='new-Items' onSubmit={this.addItems}>
               <input type='text' ref='itemOne' />
               <input type='text' ref='itemTwo' />
               <button type='submit'>Add Items</button>
             </form>
-          </IsRole>
           <ReactCSSTransitionGroup
             transitionName='item'
             transitionEnterTimeout={600}
