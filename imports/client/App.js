@@ -37,11 +37,9 @@ class App extends Component {
 
     return(
         <main>
-          <IsRole role='admin' {...this.props}>
             <button onClick={this.showAll}>
               Show {this.props.showAll ? 'One' : 'All'}
             </button>
-          </IsRole>
             <form className='new-Items' onSubmit={this.addItems}>
               <input type='text' ref='itemOne' />
               <input type='text' ref='itemTwo' />
