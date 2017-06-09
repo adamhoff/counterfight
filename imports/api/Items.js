@@ -15,8 +15,11 @@ const ItemsSchema = new SimpleSchema({
     type: Date,
     optional: true
   },
+  createdAt: {
+    type: Date
+  },
   owner: String,
-  username: String
+  username: String,
 });
 
 Items.attachSchema(ItemsSchema);
@@ -38,44 +41,44 @@ if (Meteor.isServer) {
           text: itemTwo,
           value: 0,
         },
+        createdAt: new Date(),
         owner: Meteor.userId(),
-        username: Meteor.user().username
+        username: Meteor.user().username,
       });
     }
   },
     deleteItem(item){
-      if(Meteor.userId()){
+      if(Meteor.userId() === item.owner){
         Items.remove(item._id)
       }
     },
 
     voteOnItem(item, position) {
-      check(item, Object);
-      let lastUpdated = new Date();
-      if(Meteor.userId()) {
-        if(position === 'itemOne') {
-          Items.update(item._id, {
-            $inc: {
-              'itemOne.value': 1
-            },
-            $set: {
-              lastUpdated
-            }
-          })
-        } else {
-          Items.update(item._id, {
-            $inc: {
-              'itemTwo.value': 1
-            },
-            $set: {
-              lastUpdated
-            }
-          })
+        let lastUpdated = new Date();
+        if(Meteor.userId()) {
+          if(position === 'itemOne') {
+            Items.update(item._id, {
+              $inc: {
+                'itemOne.value': 1
+              },
+              $set: {
+                lastUpdated
+              }
+            })
+          } else {
+            Items.update(item._id, {
+              $inc: {
+                'itemTwo.value': 1
+              },
+              $set: {
+                lastUpdated
+              }
+            })
+          }
         }
       }
-    }
-  });
-}
+    });
+  }
 
 
 export default Items;

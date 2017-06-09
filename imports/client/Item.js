@@ -18,7 +18,14 @@ export default class Item extends Component {
   render() {
     return(
         <div className='item'>
-          <span>{this.props.item.username}</span>
+          <div className='username'>
+            <p>{this.props.item.username}</p>
+            <br></br>
+            <br></br>
+            <br></br>
+            <p className='comments-header'>show comments</p>
+            <p className='comments-arrow'>&darr;</p>
+          </div>
           <div className='vote-one' onClick={this.voteOne}>
             <span>{this.props.item.itemOne.value}</span>
             <h3>{this.props.item.itemOne.text}</h3>

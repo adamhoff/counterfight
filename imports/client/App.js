@@ -31,9 +31,9 @@ class App extends Component {
     }
   }
   render() {
-    if (!this.props.ready) {
-      return <div>Loading</div>;
-    }
+    // if (!this.props.ready) {
+    //   return <div>Loading</div>;
+    // }
 
     return(
         <main>
@@ -73,7 +73,7 @@ export default createContainer((params) => {
   else {
     itemsArray = Items.find({}, {
       limit: showAll ? 50 : 1,
-      sort:  showAll ? { createdAt: 1 } : { lastUpdated: 1}
+      sort:  showAll ? { createdAt: -1 } : { lastUpdated: 1}
     }).fetch()
   }
   return {
