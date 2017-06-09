@@ -14,7 +14,9 @@ const ItemsSchema = new SimpleSchema({
   lastUpdated: {
     type: Date,
     optional: true
-  }
+  },
+  owner: String,
+  username: String
 });
 
 Items.attachSchema(ItemsSchema);
@@ -26,6 +28,7 @@ if (Meteor.isServer) {
 
   Meteor.methods({
     insertNewItem(itemOne, itemTwo) {
+      if(Meteor.userId()) {
       Items.insert({
         itemOne: {
           text: itemOne,
@@ -34,9 +37,16 @@ if (Meteor.isServer) {
         itemTwo: {
           text: itemTwo,
           value: 0,
-        }
+        },
+        owner: Meteor.userId(),
+        username: Meteor.user().username
       });
-      Roles.addUsersToRoles(Meteor.userId(), 'submitter')
+    }
+  },
+    deleteItem(item){
+      if(Meteor.userId()){
+        Items.remove(item._id)
+      }
     },
 
     voteOnItem(item, position) {
@@ -63,7 +73,6 @@ if (Meteor.isServer) {
           })
         }
       }
-      Roles.addUsersToRoles(Meteor.userId(), 'voter')
     }
   });
 }

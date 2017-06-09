@@ -14,7 +14,7 @@ class App extends Component {
     const itemOne = this.refs.itemOne.value.trim();
     const itemTwo = this.refs.itemTwo.value.trim();
 
-    if(itemOne !== '' && itemTwo !== ''){
+    if(itemOne !== '' && itemTwo !== '' && Meteor.user()){
       Meteor.call('insertNewItem', itemOne, itemTwo, (err, res) => {
         if (!err) {
           this.refs.itemOne.value = '';
@@ -37,12 +37,14 @@ class App extends Component {
 
     return(
         <main>
-            <button onClick={this.showAll}>
+            <button className='show-toggle' onClick={this.showAll}>
               Show {this.props.showAll ? 'One' : 'All'}
             </button>
+            <span className='directions'>Sign in and add two items to start a vote</span>
             <form className='new-Items' onSubmit={this.addItems}>
-              <input type='text' ref='itemOne' />
-              <input type='text' ref='itemTwo' />
+              <input type='text' ref='itemOne' placeholder='Ex: Cats...'/>
+              <span> vs </span>
+              <input type='text' ref='itemTwo' placeholder='Ex: Dogs...'/>
               <button type='submit'>Add Items</button>
             </form>
           <ReactCSSTransitionGroup
@@ -71,12 +73,13 @@ export default createContainer((params) => {
   else {
     itemsArray = Items.find({}, {
       limit: showAll ? 50 : 1,
-      sort: { lastUpdated: 1 }
+      sort:  showAll ? { createdAt: 1 } : { lastUpdated: 1}
     }).fetch()
   }
   return {
     showAll,
     ready: itemsSubscription.ready() && userSubscription.ready(),
-    items: itemsArray
+    items: itemsArray,
+    currentUser: Meteor.user()
   }
 }, App);
