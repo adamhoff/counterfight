@@ -258,14 +258,27 @@ main {
   margin: 0 auto;
   padding: 20px;
 }
+
 input[type='text'] {
   width: 45%;
 }
+
 button[type='submit'] {
   width: 100%;
-  border: solid 1px #111;
-  background: #FFF;
+  border: solid 1px black;
+  background: #ffef96;
+  color: Indigo;
   margin-top: 10px;
+  font-weight: bold;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.25), 0 2px 2px rgba(0,0,0,0.22);
+}
+
+button[type='submit']:active {
+  box-shadow: none;
+}
+
+button[type='submit']:focus {
+  outline: none;
 }
 
 a#login-name-link.login-link-text, a#login-sign-in-link.login-link-text {
