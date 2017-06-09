@@ -5,7 +5,7 @@ const Items = new Mongo.Collection('items');
 
 const ItemSchema = new SimpleSchema({
   text: String,
-  value: SimpleSchema.Integer
+  value: SimpleSchema.Integer,
 })
 
 const ItemsSchema = new SimpleSchema({

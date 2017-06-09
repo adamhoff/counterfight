@@ -284,7 +284,7 @@ a#login-name-link.login-link-text, a#login-sign-in-link.login-link-text {
 }
 
 .item p {
-  font-size: 18px;
+  font-size: 13px;
   margin: 0;
 }
 
@@ -299,25 +299,28 @@ a#login-name-link.login-link-text, a#login-sign-in-link.login-link-text {
 
 .item .vote-one {
   border-bottom-color: Indigo;
+  margin-left: 10px;
 }
 
 .item .vote-two {
   border-bottom-color: #ffef96;
 }
+
 .item .username {
   color: #555;
   border-bottom: none;
   width: 10%;
-  font-size: 14px;
   font-style: italic;
 }
+
 .item .username:hover {
   cursor: auto;
   background-color: white;
 }
+
 .item .comments-header {
   font-style: normal;
-  font-size: 12px;
+  font-size: 10px;
   color: #CCC;
 }
 
@@ -422,16 +425,19 @@ a#login-name-link.login-link-text, a#login-sign-in-link.login-link-text {
 }
 
 .delete {
-  background-color: white;
+  background-color: Indigo;
+  color: #ffef96;
   border: none;
-  border-left: 2px solid #EEE;
   padding: 20px;
   font-size: 24px;
   transition: 0.3s ease all;
+  outline: none;
+  margin-left: 10px;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.25), 0 2px 2px rgba(0,0,0,0.22);
 }
 
 .delete:hover {
   cursor: pointer;
-  background-color: black;
-  color: white;
+  background-color: #ffef96;
+  color: Indigo;
 }

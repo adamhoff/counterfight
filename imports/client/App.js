@@ -31,10 +31,6 @@ class App extends Component {
     }
   }
   render() {
-    // if (!this.props.ready) {
-    //   return <div>Loading</div>;
-    // }
-
     return(
         <main>
             <button className='show-toggle' onClick={this.showAll}>
