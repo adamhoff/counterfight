@@ -285,7 +285,19 @@ a#login-name-link.login-link-text, a#login-sign-in-link.login-link-text {
   color: #ffef96;
   font-size: 18px;
 }
-
+a#signup-link.additional-link{
+  background: #333;
+  color: white;
+  padding: 8px;
+  border: 0;
+  border-radius: 2px;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  width: 235px;
+}
+a#signup-link.additional-link:hover{
+  opacity: .5;
+}
 .item {
   margin-top: 20px;
   background: #FFF;

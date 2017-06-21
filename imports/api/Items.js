@@ -20,6 +20,10 @@ const ItemsSchema = new SimpleSchema({
   },
   owner: String,
   username: String,
+  category: String,
+  voters: {
+    type: Array
+  }
 });
 
 Items.attachSchema(ItemsSchema);
@@ -30,7 +34,7 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    insertNewItem(itemOne, itemTwo) {
+    insertNewItem(itemOne, itemTwo, cat) {
       if(Meteor.userId()) {
       Items.insert({
         itemOne: {
@@ -44,6 +48,8 @@ if (Meteor.isServer) {
         createdAt: new Date(),
         owner: Meteor.userId(),
         username: Meteor.user().username,
+        category: cat,
+        voters: []
       });
     }
   },
@@ -56,27 +62,37 @@ if (Meteor.isServer) {
     voteOnItem(item, position) {
         let lastUpdated = new Date();
         if(Meteor.userId()) {
-          if(position === 'itemOne') {
-            Items.update(item._id, {
-              $inc: {
-                'itemOne.value': 1
-              },
-              $set: {
-                lastUpdated
+          if (_.include(item.voters, this.userId)){
+            throw new Meteor.Error('invalid', 'Already voted');
+          }else {
+              if(position === 'itemOne') {
+                Items.update(item._id, {
+                  $push: {
+                    voters: this.userId
+                  },
+                  $inc: {
+                    'itemOne.value': 1
+                  },
+                  $set: {
+                    lastUpdated
+                  }
+                })
+              } else {
+                Items.update(item._id, {
+                  $push: {
+                    voters: this.userId
+                  },
+                  $inc: {
+                    'itemTwo.value': 1
+                  },
+                  $set: {
+                    lastUpdated
+                  }
+                })
               }
-            })
-          } else {
-            Items.update(item._id, {
-              $inc: {
-                'itemTwo.value': 1
-              },
-              $set: {
-                lastUpdated
-              }
-            })
-          }
+            }
         }
-      }
+      },
     });
   }
 

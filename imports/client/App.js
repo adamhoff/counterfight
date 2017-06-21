@@ -13,12 +13,14 @@ class App extends Component {
     event.preventDefault();
     const itemOne = this.refs.itemOne.value.trim();
     const itemTwo = this.refs.itemTwo.value.trim();
+    const cat = this.refs.cat.value.trim();
 
     if(itemOne !== '' && itemTwo !== '' && Meteor.user()){
-      Meteor.call('insertNewItem', itemOne, itemTwo, (err, res) => {
+      Meteor.call('insertNewItem', itemOne, itemTwo, cat, (err, res) => {
         if (!err) {
           this.refs.itemOne.value = '';
           this.refs.itemTwo.value = '';
+          this.refs.cat.value = '';
         }
       });
     }
@@ -38,9 +40,10 @@ class App extends Component {
             </button>
             <span className='directions'>Sign in and add two items to start a vote</span>
             <form className='new-Items' onSubmit={this.addItems}>
-              <input type='text' ref='itemOne' placeholder='Ex: Cats...'/>
+              <input type='text' ref='itemOne' placeholder='Item One: Cats...'/>
               <span> vs </span>
-              <input type='text' ref='itemTwo' placeholder='Ex: Dogs...'/>
+              <input type='text' ref='itemTwo' placeholder='Item Two: Dogs...'/>
+              <input type='text' ref='cat' placeholder='Category: Health, Politics, etc...'/>
               <button type='submit'>Add Items</button>
             </form>
           <ReactCSSTransitionGroup

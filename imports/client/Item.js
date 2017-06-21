@@ -15,6 +15,16 @@ export default class Item extends Component {
   removeItem() {
     Meteor.call('deleteItem', this.props.item);
   }
+  addComment(event) {
+    event.preventDefault();
+    var comment = this.refs.comment.value.trim();
+
+    Meteor.call('createComment', this.props.item, 'comment', (err, res) => {
+      if (!err) {
+        this.refs.comment.value = '';
+      }
+    });
+  }
   render() {
     return(
         <div className='item'>
@@ -23,8 +33,7 @@ export default class Item extends Component {
             <br></br>
             <br></br>
             <br></br>
-            <p className='comments-header'>show comments</p>
-            <p className='comments-arrow'>&darr;</p>
+            
           </div>
           <div className='vote-one' onClick={this.voteOne}>
             <span>{this.props.item.itemOne.value}</span>
